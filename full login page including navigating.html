@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Sign Up</title>
+    <style>
+       body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: url('https://wallpaperaccess.com/full/2792583.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+    backdrop-filter: blur(15px); /* Blur effect */
+    -webkit-backdrop-filter: blur(15px); /* Safari support */
+    padding: 40px;
+    border-radius: 12px; /* Slightly rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #000000; /* White text for better visibility on a glass background */
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: 
+    
+    #3b0606; /* White text for labels */
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.6); /* Semi-transparent border */
+    border-radius: 5px;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.3); /* Light background for input */
+    color: #000; /* Black text inside input fields */
+}
+
+.form-group input:focus {
+    border-color: rgba(255, 255, 255, 0.9); /* Brighter border on focus */
+    outline: none;
+    background: rgba(255, 255, 255, 0.4); /* Slightly darker background on focus */
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(0, 123, 255, 0.8); /* Semi-transparent button */
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+    .btn:hover {
+    background-color: rgb(5, 75, 41); /* Fully opaque on hover */
+     }
+
+        .link {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sign In Container -->
+    <div class="container" id="signInContainer">
+        <h2>Sign In</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn">Sign In</button>
+        </form>
+        <div class="link">
+            <p>Don't have an account? <a href="#" id="goToSignUp">Sign Up</a></p>
+            <p><a href="#" id="goToForgotPassword">Forgot Password?</a></p>
+        </div>
+    </div>
+
+    <!-- Sign Up Container -->
+    <div class="container" id="signUpContainer" style="display: none;">
+        <h2>Sign Up</h2>
+        <form id="signUpForm">
+            <div class="form-group">
+                <label for="signUpEmail">Email</label>
+                <input type="email" id="signUpEmail" name="signUpEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="signUpPassword">Password</label>
+                <input type="password" id="signUpPassword" name="signUpPassword" required>
+            </div>
+            <button type="submit" class="btn">Sign Up</button>
+        </form>
+        <div class="link">
+            <p>Already have an account? <a href="#" id="goToSignIn">Sign In</a></p>
+        </div>
+    </div>
+
+    <!-- Forgot Password Container -->
+    <div class="container" id="forgotPasswordContainer" style="display: none;">
+        <h2>Forgot Password</h2>
+        <form id="forgotPasswordForm">
+            <div class="form-group">
+                <label for="forgotPasswordEmail">Enter your Email</label>
+                <input type="email" id="forgotPasswordEmail" name="forgotPasswordEmail" required>
+            </div>
+            <button type="submit" class="btn">Reset Password</button>
+        </form>
+        <div class="link">
+            <p>Remember your password? <a href="#" id="goToSignInFromForgot">Sign In</a></p>
+        </div>
+    </div>
+
+    <script>
+        const signInContainer = document.getElementById('signInContainer');
+        const signUpContainer = document.getElementById('signUpContainer');
+        const forgotPasswordContainer = document.getElementById('forgotPasswordContainer');
+
+        // Navigate between Sign In and Sign Up
+        document.getElementById('goToSignUp').addEventListener('click', function(event) {
+            event.preventDefault();
+            signInContainer.style.display = 'none';
+            signUpContainer.style.display = 'block';
+        });
+
+        document.getElementById('goToSignIn').addEventListener('click', function(event) {
+            event.preventDefault();
+            signUpContainer.style.display = 'none';
+            signInContainer.style.display = 'block';
+        });
+
+        // Navigate to Forgot Password
+        document.getElementById('goToForgotPassword').addEventListener('click', function(event) {
+            event.preventDefault();
+            signInContainer.style.display = 'none';
+            forgotPasswordContainer.style.display = 'block';
+        });
+
+        // Navigate back to Sign In from Forgot Password
+        document.getElementById('goToSignInFromForgot').addEventListener('click', function(event) {
+            event.preventDefault();
+            forgotPasswordContainer.style.display = 'none';
+            signInContainer.style.display = 'block';
+        });
+
+        // Login Form Submission
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Retrieve saved sign-up details from localStorage
+            const savedEmail = localStorage.getItem('userEmail');
+            const savedPassword = localStorage.getItem('userPassword');
+
+            if (email === savedEmail && password === savedPassword) {
+                alert("Login successful!");
+                window.location.href = "index.html"; // Navigate to homepage
+            } else {
+                alert("Invalid email or password.");
+            }
+        });
+
+        // Sign Up Form Submission
+        document.getElementById('signUpForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('signUpEmail').value;
+            const password = document.getElementById('signUpPassword').value;
+
+            if (password.length < 6 || password.length > 12) {
+                alert("Password must be between 6 to 12 characters.");
+                return;
+            }
+
+            // Save sign-up details in localStorage
+            localStorage.setItem('userEmail', email);
+            localStorage.setItem('userPassword', password);
+
+            alert("Sign Up successful! Please sign in.");
+            signUpContainer.style.display = 'none';
+            signInContainer.style.display = 'block';
+        });
+
+        // Forgot Password Form Submission
+        document.getElementById('forgotPasswordForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('forgotPasswordEmail').value;
+
+            // Check if email exists in localStorage
+            const savedEmail = localStorage.getItem('userEmail');
+
+            if (email === savedEmail) {
+                // Simulate sending password reset
+                alert("Password reset instructions have been sent to your email.");
+                forgotPasswordContainer.style.display = 'none';
+                signInContainer.style.display = 'block';
+            } else {
+                alert("Email not found.");
+            }
+        });
+    </script>
+</body>
+</html>
